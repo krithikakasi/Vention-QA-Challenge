@@ -1,0 +1,937 @@
+{
+  "info": {
+    "_postman_id": "c7dc0b7f-d386-4c9b-9c31-5183bde087d3",
+    "name": "Weapon Quests Krithika",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "15100551"
+  },
+  "item": [
+    {
+      "name": "Weapons",
+      "item": [
+        {
+          "name": "Weapons",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "    \r",
+                  "    let JsonData = pm.response.json();\r",
+                  "    pm.test(\"Check if Weapons are returned:\", function () \r",
+                  "    { \r",
+                  "        pm.response.to.have.status(200);   \r",
+                  "        pm.expect(JsonData.Weapon).to.not.eql(null);\r",
+                  "    })\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "followRedirects": true,
+            "disableUrlEncoding": false,
+            "disableCookies": false
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{host_url}}/api/weapon",
+              "host": ["{{host_url}}"],
+              "path": ["api", "weapon"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Weapons-URL NotFound",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "    \r",
+                  "    let JsonData = pm.response.json();\r",
+                  "    pm.test(\"Check if status code is 400:\", function () \r",
+                  "    { \r",
+                  "        pm.response.to.have.status(404);   \r",
+                  "        \r",
+                  "    })\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "followRedirects": true,
+            "disableUrlEncoding": false,
+            "disableCookies": false
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{host_url}}/api/weapons",
+              "host": ["{{host_url}}"],
+              "path": ["api", "weapons"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "MaxBuildQuantity",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "    let JsonData = pm.response.json();\r",
+                  "    pm.test(\"Check if Weapon and maxBuildQty are returned:\", function () \r",
+                  "    { \r",
+                  "        pm.response.to.have.status(200);   \r",
+                  "        pm.expect(JsonData.Weapon).to.not.eql(null);\r",
+                  "        pm.expect(JsonData.maxBuildQty).to.not.eql(null);\r",
+                  "    })"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "followRedirects": true,
+            "disableUrlEncoding": false,
+            "disableCookies": false
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{host_url}}/api/weapon/3/maxBuildQuantity",
+              "host": ["{{host_url}}"],
+              "path": ["api", "weapon", "3", "maxBuildQuantity"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "MaxBuildQuantity-WeaponID Not Found",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "    let JsonData = pm.response.json();\r",
+                  "    pm.test(\"Check if Status code and message are returned\", function () \r",
+                  "    { \r",
+                  "        pm.response.to.have.status(404);   \r",
+                  "        pm.expect(JsonData.errors[0].message).is.to.equal('Weapon ID does not exist');\r",
+                  "    })"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "followRedirects": true,
+            "disableUrlEncoding": false,
+            "disableCookies": false
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{host_url}}/api/weapon/36/maxBuildQuantity",
+              "host": ["{{host_url}}"],
+              "path": ["api", "weapon", "36", "maxBuildQuantity"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Materials",
+      "item": [
+        {
+          "name": "Compositions",
+          "item": [
+            {
+              "name": "Composition",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "    let JsonData = pm.response.json();\r",
+                      "    pm.test(\"Check if new composition are returned:\", function () \r",
+                      "    { \r",
+                      "        pm.response.to.have.status(200);   \r",
+                      "        pm.expect(JsonData.newComposition).to.not.eql(null);\r",
+                      "        pm.expect(JsonData.updatedWeapons).to.not.eql(null);\r",
+                      "    })"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "followRedirects": true,
+                "disableUrlEncoding": false,
+                "disableCookies": false
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"material_id\": 9,\n\t\"qty\": 5\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{host_url}}/api/material/11/composition",
+                  "host": ["{{host_url}}"],
+                  "path": ["api", "material", "11", "composition"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Composition-Missing material id",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "    let JsonData = pm.response.json();\r",
+                      "    pm.test(\"Check if error message is relevant:\", function () \r",
+                      "    { \r",
+                      "        pm.response.to.have.status(200);   \r",
+                      "        pm.expect(JsonData.errors[0].message).is.to.equal('Material ID is missing');\r",
+                      "    })"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "followRedirects": true,
+                "disableUrlEncoding": false,
+                "disableCookies": false
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"qty\": 5\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{host_url}}/api/material/11/composition",
+                  "host": ["{{host_url}}"],
+                  "path": ["api", "material", "11", "composition"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Composition-Parent ID non existing",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "    let JsonData = pm.response.json();\r",
+                      "    pm.test(\"Check if error message is relevant:\", function () \r",
+                      "    { \r",
+                      "        pm.response.to.have.status(404);   \r",
+                      "        pm.expect(JsonData.errors[0].message).is.to.equal('Parent ID does not exist');\r",
+                      "    })"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "followRedirects": true,
+                "disableUrlEncoding": false,
+                "disableCookies": false
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{   \"material_id\": 9,\n\t\"qty\": 5\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{host_url}}/api/material/110/composition",
+                  "host": ["{{host_url}}"],
+                  "path": ["api", "material", "110", "composition"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Composition",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "    let JsonData = pm.response.json();\r",
+                      "    pm.test(\"Check if updated composition is returned:\", function () \r",
+                      "    { \r",
+                      "        pm.response.to.have.status(200);   \r",
+                      "        pm.expect(JsonData.updatedComposition).to.not.eql(null);\r",
+                      "        pm.expect(JsonData.updatedWeapons).to.not.eql(null);\r",
+                      "    })"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "followRedirects": true,
+                "disableUrlEncoding": false,
+                "disableCookies": false
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"material_id\": 1,\n\t\"qty\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{host_url}}/api/material/10/composition/11",
+                  "host": ["{{host_url}}"],
+                  "path": ["api", "material", "10", "composition", "11"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Composition-Missing materialId",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "    let JsonData = pm.response.json();\r",
+                      "    pm.test(\"Check if error message is relevant:\", function () \r",
+                      "    { \r",
+                      "        pm.response.to.have.status(200);   \r",
+                      "        pm.expect(JsonData.errors[0].message).is.to.equal('Material ID is missing');\r",
+                      "    })"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "followRedirects": true,
+                "disableUrlEncoding": false,
+                "disableCookies": false
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"qty\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{host_url}}/api/material/10/composition/11",
+                  "host": ["{{host_url}}"],
+                  "path": ["api", "material", "10", "composition", "11"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Composition-ParentID MaterialID non existing",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "    let JsonData = pm.response.json();\r",
+                      "    pm.test(\"Check if error message is relevant:\", function () \r",
+                      "    { \r",
+                      "        pm.response.to.have.status(404);   \r",
+                      "        pm.expect(JsonData.errors[0].message).is.to.equal('Parent ID and Material ID do not exist');\r",
+                      "    })"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "followRedirects": true,
+                "disableUrlEncoding": false,
+                "disableCookies": false
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"material_id\": 1,\n\t\"qty\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{host_url}}/api/material/100/composition/110",
+                  "host": ["{{host_url}}"],
+                  "path": ["api", "material", "100", "composition", "110"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Composition",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "    let JsonData = pm.response.json();\r",
+                      "    pm.test(\"Check if Status code is correct:\", function () \r",
+                      "    { \r",
+                      "        pm.response.to.have.status(204);   \r",
+                      "        \r",
+                      "    })"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "followRedirects": true,
+                "disableUrlEncoding": false,
+                "disableCookies": false
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{host_url}}/api/material/9/composition/10",
+                  "host": ["{{host_url}}"],
+                  "path": ["api", "material", "9", "composition", "10"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Composition-IDs non existing",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "    let JsonData = pm.response.json();\r",
+                      "    pm.test(\"Check if Status code and message are correct:\", function () \r",
+                      "    { \r",
+                      "        pm.response.to.have.status(404);\r",
+                      "        pm.expect(JsonData.errors[0].message).is.to.equal('Parent ID and material ID does not exist');\r",
+                      "        \r",
+                      "    })"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "followRedirects": true,
+                "disableUrlEncoding": false,
+                "disableCookies": false
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{host_url}}/api/material/900/composition/100",
+                  "host": ["{{host_url}}"],
+                  "path": ["api", "material", "900", "composition", "100"]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Material",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "   let JsonData = pm.response.json();\r",
+                  "    pm.test(\"Check if material array is returned:\", function () \r",
+                  "    { \r",
+                  "        pm.response.to.have.status(200);   \r",
+                  "        pm.expect(JsonData.Material).to.not.eql(null);\r",
+                  "        pm.expect(JsonData.Material[0].name).eql('Iron');\r",
+                  "        pm.expect(JsonData.Material[1].name).eql('Steel');\r",
+                  "        pm.expect(JsonData.Material[2].name).eql('Bronze');\r",
+                  "        pm.expect(JsonData.Material[3].name).eql('Copper');\r",
+                  "        pm.expect(JsonData.Material[4].name).eql('Wood');\r",
+                  "        pm.expect(JsonData.Material[5].name).eql('Leather');\r",
+                  "        pm.expect(JsonData.Material[6].name).eql('Bone');\r",
+                  "        pm.expect(JsonData.Material[7].name).eql('Horn');\r",
+                  "        pm.expect(JsonData.Material[8].name).eql('Flint');\r",
+                  "        pm.expect(JsonData.Material[9].name).eql('Obsidian');\r",
+                  "        pm.expect(JsonData.Material[10].name).eql('Brass');\r",
+                  "        pm.expect(JsonData.Material[10].name).eql('Silver');\r",
+                  "\r",
+                  "    })"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "followRedirects": true,
+            "disableUrlEncoding": false,
+            "disableCookies": false
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{host_url}}/api/material",
+              "host": ["{{host_url}}"],
+              "path": ["api", "material"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Materials-UnsupportedEndpoint",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "    let JsonData = pm.response.json();\r",
+                  "    pm.test(\"Check if status code is 404:\", function () \r",
+                  "    { \r",
+                  "        pm.response.to.have.status(404);   \r",
+                  "        \r",
+                  "    })"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "followRedirects": true,
+            "disableUrlEncoding": false,
+            "disableCookies": false
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{host_url}}/api/materials",
+              "host": ["{{host_url}}"],
+              "path": ["api", "materials"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Material By ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "   let JsonData = pm.response.json();\r",
+                  "    pm.test(\"Check if material array is returned:\", function () \r",
+                  "    { \r",
+                  "        pm.response.to.have.status(200);   \r",
+                  "        pm.expect(JsonData.Material).to.not.eql(null);\r",
+                  "        pm.expect(JsonData.Material[0].name).eql('Steel');\r",
+                  "        pm.expect(JsonData.Material[0].id).eql(2);\r",
+                  "        pm.expect(JsonData.Material[0].base_power).eql(20);\r",
+                  "        pm.expect(JsonData.Material[0].qty).eql(1);\r",
+                  "       \r",
+                  "\r",
+                  "    })"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "followRedirects": true,
+            "disableUrlEncoding": false,
+            "disableCookies": false
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{host_url}}/api/material/2",
+              "host": ["{{host_url}}"],
+              "path": ["api", "material", "2"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Material-NonExisting ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "   let JsonData = pm.response.json();\r",
+                  "    pm.test(\"Check if status code is 400:\", function () \r",
+                  "    { \r",
+                  "        pm.response.to.have.status(400);\r",
+                  "        pm.expect(JsonData.errors[0].message).is.to.equal('Material ID does not exist');\r",
+                  "      \r",
+                  "\r",
+                  "    })\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "followRedirects": true,
+            "disableUrlEncoding": false,
+            "disableCookies": false
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{host_url}}/api/material/200",
+              "host": ["{{host_url}}"],
+              "path": ["api", "material", "200"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Material",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "    let JsonData = pm.response.json();\r",
+                  "    pm.test(\"Check if updated materials are returned:\", function () \r",
+                  "    { \r",
+                  "        pm.response.to.have.status(200);   \r",
+                  "        pm.expect(JsonData.updatedMaterials).to.not.eql(null);\r",
+                  "        pm.expect(JsonData.updatedMaterials.Materials[0].name).eql('Iron');\r",
+                  "        pm.expect(JsonData.updatedMaterials.Materials[0].base_power).eql(100);\r",
+                  "        pm.expect(JsonData.updatedMaterials.Materials[0].qty).eql(50000);\r",
+                  "        pm.expect(JsonData.updatedMaterials.Weapon[0]).to.not.eql(null);\r",
+                  "    })\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "followRedirects": true,
+            "disableUrlEncoding": false,
+            "disableCookies": false
+          },
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"base_power\": 100,\n\t\"qty\": 50000\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{host_url}}/api/material/1",
+              "host": ["{{host_url}}"],
+              "path": ["api", "material", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Material-NonExistingID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "    let JsonData = pm.response.json();\r",
+                  "    pm.test(\"Check if status code and error message is correct:\", function () \r",
+                  "    { \r",
+                  "        pm.response.to.have.status(404);   \r",
+                  "        pm.expect(JsonData.errors[0].message).is.to.equal('Material ID does not exist');\r",
+                  "    })\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "followRedirects": true,
+            "disableUrlEncoding": false,
+            "disableCookies": false
+          },
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"base_power\": 100,\n\t\"qty\": 50000\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{host_url}}/api/material/102",
+              "host": ["{{host_url}}"],
+              "path": ["api", "material", "102"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Material",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "    let JsonData = pm.response.json();\r",
+                  "    pm.test(\"Check if deleted materials are returned:\", function () \r",
+                  "    { \r",
+                  "        pm.response.to.have.status(200);   \r",
+                  "        pm.expect(JsonData.deletedMaterials).to.not.eql(null);\r",
+                  "        pm.expect(JsonData.deletedMaterials.Materials[0].name).eql('Silver');\r",
+                  "        pm.expect(JsonData.deletedMaterials.brokenWeapons).to.not.eql(null);\r",
+                  "        pm.expect(JsonData.deletedMaterials.brokenWeapons.Weapon).to.not.eql(null);\r",
+                  "        \r",
+                  "    })\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "followRedirects": true,
+            "disableUrlEncoding": false,
+            "disableCookies": false
+          },
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{host_url}}/api/material/12",
+              "host": ["{{host_url}}"],
+              "path": ["api", "material", "12"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Material-NonExistingID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "    let JsonData = pm.response.json();\r",
+                  "    pm.test(\"Check if status code and error message is correct:\", function () \r",
+                  "    { \r",
+                  "        pm.response.to.have.status(404);   \r",
+                  "        pm.expect(JsonData.errors[0].message).is.to.equal('Material ID does not exist');\r",
+                  "    })\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "followRedirects": true,
+            "disableUrlEncoding": false,
+            "disableCookies": false
+          },
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{host_url}}/api/material/120",
+              "host": ["{{host_url}}"],
+              "path": ["api", "material", "120"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Home",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "    pm.test(\"Check if Status code is returned\", function () \r",
+              "    { \r",
+              "        pm.response.to.have.status(200);   \r",
+              "        \r",
+              "    })"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "followRedirects": true,
+        "disableUrlEncoding": false,
+        "disableCookies": false
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{host_url}}/",
+          "host": ["{{host_url}}"],
+          "path": [""]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "host_url",
+      "value": "https://ksnpx6-5000.csb.app/"
+    }
+  ]
+}
